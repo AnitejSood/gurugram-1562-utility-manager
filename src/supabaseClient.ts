@@ -165,10 +165,14 @@ export const db = {
     if (isDemoMode) {
       return localStore.saveBill(bill);
     }
+    
+    // Destructure to remove display-only properties before saving to database
+    const { tenant_name, flat_number, ...dbBillPayload } = bill;
+
     // Save bill
     const { data, error } = await supabase!
       .from('bills')
-      .insert([bill])
+      .insert([dbBillPayload])
       .select()
       .single();
     if (error) throw error;
@@ -180,7 +184,12 @@ export const db = {
       .eq('id', bill.tenant_id);
     if (tenantError) throw tenantError;
 
-    return data;
+    // Return the created bill with display properties appended back for frontend state
+    return {
+      ...data,
+      tenant_name: bill.tenant_name,
+      flat_number: bill.flat_number
+    };
   },
 
   async updateBillPaidStatus(id: string, status: 'unpaid' | 'paid'): Promise<void> {

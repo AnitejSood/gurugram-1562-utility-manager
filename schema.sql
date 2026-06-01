@@ -76,5 +76,10 @@ CREATE TABLE IF NOT EXISTS bills (
 -- For simplicity in setup, these policies enable public upload and select.
 
 -- (Optional) If you want to enable storage policies via SQL:
--- NOTE: Storage policies usually apply to storage.objects.
 -- Make sure the buckets exist first before running storage policies.
+
+-- Disable RLS on all tables to allow the app client to execute operations
+ALTER TABLE tenants DISABLE ROW LEVEL SECURITY;
+ALTER TABLE submissions DISABLE ROW LEVEL SECURITY;
+ALTER TABLE bills DISABLE ROW LEVEL SECURITY;
+ALTER TABLE settings DISABLE ROW LEVEL SECURITY;
