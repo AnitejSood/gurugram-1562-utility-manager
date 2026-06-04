@@ -442,6 +442,31 @@ select.input-field option {
   border-color: rgba(239, 68, 68, 0.25);
 }
 
+/* Utility Classes */
+.text-muted {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Animation Classes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 /* App Container Layout */
 .app-container {
   display: flex;
@@ -460,19 +485,43 @@ select.input-field option {
   }
 }
 
+@media (max-width: 480px) {
+  .app-container {
+    padding: 10px;
+    gap: 12px;
+  }
+}
+
 /* Header Section */
 .main-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
-  gap: 16px;
+  padding: 16px 20px;
+  gap: 10px;
+  flex-wrap: nowrap;
 }
 
 .logo-section {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.logo-section > div {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.logo-section h2 {
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .logo-icon-wrapper {
@@ -482,6 +531,7 @@ select.input-field option {
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
   width: 44px;
   height: 44px;
+  min-width: 44px;
   border-radius: var(--radius-sm);
   position: relative;
   box-shadow: 0 4px 12px 0 var(--primary-glow);
@@ -499,26 +549,31 @@ select.input-field option {
 }
 
 .app-subtitle {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 /* Database Mode Indicators */
 .db-indicator-pill span {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
+  gap: 5px;
+  padding: 5px 10px;
   border-radius: 9999px;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
   border: 1px solid var(--card-border);
+  white-space: nowrap;
 }
 
 .demo-pill {
@@ -631,7 +686,16 @@ select.input-field option {
   color: var(--text-secondary);
 }
 
-/* Tenant & Admin Dashboard Grids */
+/* Tenant & Admin Dashboard Layouts */
+.tenant-dashboard-layout,
+.admin-dashboard-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+}
+
+/* Tenant Profile Title Row */
 .dashboard-title-row {
   display: flex;
   justify-content: space-between;
@@ -639,6 +703,11 @@ select.input-field option {
   margin-bottom: 24px;
   gap: 16px;
   flex-wrap: wrap;
+}
+
+.dashboard-title-row h1 {
+  font-size: 2rem;
+  word-break: break-word;
 }
 
 .tenant-badge-indicator, .admin-badge-indicator {
@@ -667,9 +736,14 @@ select.input-field option {
   gap: 24px;
 }
 
+.dashboard-grid > * {
+  min-width: 0;
+}
+
 @media (max-width: 992px) {
   .dashboard-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 }
 
@@ -785,16 +859,23 @@ select.input-field option {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  min-width: 0;
+  width: 100%;
 }
 
 .history-bills-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  width: 100%;
 }
 
 .history-bill-card {
   padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .bill-card-header {
@@ -802,28 +883,52 @@ select.input-field option {
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 14px;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+.bill-card-header h4 {
+  font-size: 1rem;
+  word-break: break-word;
+  min-width: 0;
+  flex: 1;
+}
+
+.bill-card-header .badge {
+  flex-shrink: 0;
 }
 
 .bill-card-charges {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-sm);
-  padding: 12px 16px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-bottom: 14px;
+  overflow: hidden;
 }
 
 .charge-mini-row {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   font-size: 0.85rem;
   color: var(--text-secondary);
+  gap: 8px;
+}
+
+.charge-mini-row span {
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
 }
 
 .charge-mini-row strong {
+  flex-shrink: 0;
   color: var(--text-primary);
+  text-align: right;
 }
 
 .charge-total-divider {
@@ -974,16 +1079,27 @@ select.input-field option {
 /* Notification banner */
 .notification {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: 20px;
+  right: 16px;
+  left: 16px;
   z-index: 1000;
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 16px 24px;
+  padding: 14px 18px;
   border-radius: var(--radius-sm);
-  max-width: 380px;
+  max-width: 420px;
+  margin: 0 auto;
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+@media (min-width: 500px) {
+  .notification {
+    left: auto;
+    right: 20px;
+    max-width: 380px;
+    margin: 0;
+  }
 }
 
 .notification.success {
@@ -1170,7 +1286,50 @@ select.input-field option {
   }
 }
 
+/* ─── TABLET: 768px ─── */
 @media (max-width: 768px) {
+  .main-header {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .logo-section h2 {
+    font-size: 0.95rem;
+  }
+
+  .app-subtitle {
+    font-size: 0.72rem;
+  }
+
+  .header-actions {
+    gap: 8px;
+  }
+
+  /* DB pill - shorter text on small screens */
+  .db-indicator-pill span {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+  }
+
+  /* Tenant profile title section */
+  .dashboard-title-row {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .dashboard-title-row h1 {
+    font-size: 1.6rem;
+  }
+
+  /* Admin header: stack title + tabs vertically */
+  .admin-dashboard-layout .dashboard-title-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
   .admin-header-tabs {
     overflow-x: auto;
     white-space: nowrap;
@@ -1180,86 +1339,119 @@ select.input-field option {
     display: inline-flex;
     justify-content: flex-start;
     border-radius: var(--radius-sm);
+    margin-top: 0;
   }
   
   .admin-header-tabs .tab-btn {
     flex: 0 0 auto;
-    padding: 8px 14px;
+    padding: 8px 12px;
     font-size: 0.8rem;
   }
 
   .glass-table th, .glass-table td {
-    padding: 12px 14px;
-    font-size: 0.85rem;
+    padding: 10px 12px;
+    font-size: 0.82rem;
   }
 
   .card-container {
     padding: 16px;
   }
-  
-  .dashboard-title-row {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
+
+  .history-bill-card {
+    padding: 16px;
   }
 
-  .admin-header-tabs {
-    margin-top: 8px;
+  .bill-card-actions {
+    justify-content: stretch;
+  }
+
+  .bill-card-actions .btn {
     width: 100%;
   }
 }
 
+/* ─── SMALL PHONE: 640px ─── */
 @media (max-width: 640px) {
   .main-header {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 16px;
-    gap: 12px;
-  }
-
-  .header-actions {
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 4px;
-  }
-
-  .logo-section {
-    justify-content: center;
-    text-align: center;
-    flex-direction: column;
+    padding: 10px 12px;
     gap: 8px;
   }
 
-  .logo-icon-wrapper {
-    margin: 0 auto;
+  .logo-section h2 {
+    font-size: 0.88rem;
+  }
+
+  .app-subtitle {
+    display: none;
+  }
+
+  /* Keep actions inline but compact */
+  .header-actions {
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  /* Tenant profile: stack title/logout vertically */
+  .dashboard-title-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .dashboard-title-row > div:first-child {
+    min-width: 0;
+  }
+
+  .dashboard-title-row h1 {
+    font-size: 1.45rem;
+    word-break: break-word;
+  }
+
+  /* Logout / title-row button full width */
+  .dashboard-title-row > .btn {
+    width: 100%;
+    justify-content: center;
   }
 
   .portal-selection-container {
-    margin: 16px auto;
+    margin: 12px auto;
   }
 
   .portal-card {
-    padding: 24px 16px;
+    padding: 20px 14px;
   }
 
   .stats-row {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
 
   .stat-card {
-    padding: 14px 16px;
+    padding: 12px 14px;
+    gap: 12px;
+  }
+
+  .stat-data h3 {
+    font-size: 1.3rem;
   }
 
   .review-strip-card {
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
-    padding: 14px 16px;
+    padding: 14px 14px;
   }
 
   .review-strip-actions {
-    justify-content: flex-end;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .review-strip-actions .btn {
+    flex: 1;
+    justify-content: center;
+    min-width: 100px;
   }
 
   .modal-content {
@@ -1280,35 +1472,92 @@ select.input-field option {
     grid-template-columns: 1fr;
     gap: 0;
   }
+
+  /* Info block (previous reading) */
+  .info-block-value {
+    font-size: 1.5rem;
+  }
+
+  /* Tenant submission table: hide non-essential columns */
+  .charge-mini-row {
+    font-size: 0.82rem;
+  }
 }
 
+/* ─── EXTRA SMALL: 480px ─── */
 @media (max-width: 480px) {
-  .app-container {
-    padding: 8px;
-  }
-
   .portal-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 14px;
   }
 
-  h1 {
-    font-size: 1.8rem;
+  .dashboard-title-row h1 {
+    font-size: 1.3rem;
   }
 
-  h2 {
-    font-size: 1.4rem;
-  }
+  h1 { font-size: 1.7rem; }
+  h2 { font-size: 1.35rem; }
+  h3 { font-size: 1.1rem; }
 
-  h3 {
-    font-size: 1.15rem;
-  }
-  
   .glass-table-container {
-    margin: 0 -16px;
+    margin: 0 -10px;
     border-radius: 0;
     border-left: none;
     border-right: none;
+  }
+
+  .stats-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .card-container {
+    padding: 14px 12px;
+  }
+
+  .history-bill-card {
+    padding: 14px 12px;
+  }
+
+  /* Make header logo section stay inline but smaller */
+  .logo-section h2 {
+    font-size: 0.82rem;
+  }
+
+  /* Hide the db pill entirely on very small screens - saves horizontal space */
+  .db-indicator-pill {
+    display: none;
+  }
+
+  .logo-icon-wrapper {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+  }
+
+  /* Notification full-width */
+  .notification {
+    left: 8px;
+    right: 8px;
+    bottom: 12px;
+    font-size: 0.85rem;
+    padding: 12px 14px;
+  }
+
+  /* Tenant bill card charges */
+  .bill-card-charges {
+    padding: 10px 12px;
+  }
+
+  /* Photo upload zone */
+  .photo-upload-zone {
+    padding: 24px 12px;
+  }
+
+  /* Btn full-width in form context */
+  .btn-primary[style*="width: 100%"],
+  form .btn-primary {
+    padding: 13px 16px;
   }
 }
 
