@@ -99,6 +99,10 @@ body {
   position: relative;
   background-color: var(--background);
   transition: background-color var(--transition-normal);
+  /* Push content below the phone status bar when installed as a PWA */
+  padding-top: env(safe-area-inset-top);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 }
 
 /* Background Glow Blobs */
