@@ -1,0 +1,17 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    # Runs every Monday, Wednesday, and Friday at 12:00 UTC
+    - cron: '0 12 * * 1,3,5'
+  workflow_dispatch: # Allows you to run this manually from the Actions tab
+
+jobs:
+  ping-supabase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase Database
+        run: |
+          curl -X GET "https://jhmzrnhusdmydwbxohwu.supabase.co/rest/v1/" \
+            -H "apikey: sb_publishable_BzA12Frdr-4NHERH8zVwHQ_d_R5n11H" \
+            -H "Authorization: Bearer sb_publishable_BzA12Frdr-4NHERH8zVwHQ_d_R5n11H"
